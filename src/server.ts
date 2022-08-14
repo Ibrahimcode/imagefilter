@@ -38,6 +38,9 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     // Send the filtered image in the response
     res.status(200).sendFile(filterImg)
 
+    // Delete the file on the server after sending the response
+    deleteLocalFiles([filterImg])
+
   })
   //! END @TODO1
   
