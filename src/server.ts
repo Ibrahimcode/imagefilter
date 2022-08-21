@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
@@ -36,11 +36,15 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
 
     // Send the filtered image in the response
-    res.status(200).sendFile(filterImg)
+    res.status(200).sendFile(filterImg, err => {
+      if (err) {
+        response.status(500).send("ERROR: Sorry, the server encounter and error!")
+      }
 
-    // Delete the file on the server after sending the response
-    deleteLocalFiles([filterImg])
+      // Delete the file on the server after sending the response
+      deleteLocalFiles([filterImg])
 
+    })
   })
   //! END @TODO1
   
