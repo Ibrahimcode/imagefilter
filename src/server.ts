@@ -31,20 +31,19 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   app.get("/filteredimage", async (req, res) => {
     const imageUrl: string = req.query.image_url
 
-    // Filter the image
+    try {
+      // Filter the image
     const filterImg: string = await filterImageFromURL(imageUrl)
 
-
     // Send the filtered image in the response
-    res.status(200).sendFile(filterImg, err => {
-      if (err) {
-        response.status(500).send("ERROR: Sorry, the server encounter and error!")
-      }
-
+    res.status(200).sendFile(filterImg, () => {
       // Delete the file on the server after sending the response
       deleteLocalFiles([filterImg])
 
     })
+    } catch (error) {
+      res.status(422).send("ERROR: Unable to fileter the image. Try another simple image, and make sure image url is correct.")
+    }   
   })
   //! END @TODO1
   
