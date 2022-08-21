@@ -32,8 +32,11 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     const imageUrl: string = req.query.image_url
 
     // validate image url.
-    if (imageUrl.startsWith('https://') == false || imageUrl.startsWith('http://') == false) {
-      return res.status(400).send("Error: Please provide a valid image url.")      
+    if (imageUrl.startsWith('https://') || imageUrl.startsWith('http://')) {
+      // Jump to the try and catch block.
+    } else {
+      return res.status(400).send("Error: Please provide a valid image url.")
+      
     }
 
     try {
