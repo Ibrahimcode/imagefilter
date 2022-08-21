@@ -33,7 +33,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
     // validate image url.
     if (imageUrl.startsWith('https://') == false || imageUrl.startsWith('http://') == false) {
-      res.status(400).send("Error: Please provide a valid image url.")
+      return res.status(400).send("Error: Please provide a valid image url.")      
     }
 
     try {
